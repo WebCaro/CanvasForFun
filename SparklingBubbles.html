@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Pixel Dripping</title>
+</head>
+<style type="text/css">
+	canvas {margin: 7% 15%; 
+			width: 1200px;
+		}
+</style>
+<body>
+	<canvas id="leinwand" width="1200" height="500"></canvas>
+	
+	<script type="text/javascript">
+		var canvas = document.getElementById("leinwand"); 
+		ctx = canvas.getContext("2d");
+		
+	var colors = ["wheat","papayawhip","cadetblue","mistyrose","firebrick","peru","saddlebrown","tan","maroon","midnightblue","snow","whitesmoke","azure","aliceblue","sienna","darkred"];
+	
+	
+	function Kreis(x,y,radius,color) {
+		this.x = x;
+		this.y = y;
+		this.radius = radius;
+		this.color = color;
+
+		this.draw = function() {
+		    for (var i = 0; i < 15; i++) {
+				var einKreis = new Kreis(Math.floor(Math.random()*1000),
+										 Math.floor(Math.random()*350)+50,
+										 Math.floor(Math.random()*50)+1,
+										 colors[Math.floor(Math.random()*colors.length)]);
+			ctx.globalAlpha = Math.random();	
+			ctx.beginPath();
+			ctx.arc(einKreis.x, einKreis.y, einKreis.radius, 0, Math.PI * 2, true);
+			ctx.closePath();
+			ctx.fillStyle = einKreis.color;
+			ctx.fill();
+			}
+		}
+	}
+
+	// Startbild
+	for (var i = 0; i < 100; i++) {
+		var einKreis = new Kreis(Math.floor(Math.random()*1000),
+								 Math.floor(Math.random()*350)+50,
+								 Math.floor(Math.random()*50)+1,
+								 colors[Math.floor(Math.random()*colors.length)]);
+		ctx.globalAlpha = Math.random();	
+		ctx.beginPath();
+		ctx.arc(einKreis.x, einKreis.y, einKreis.radius, 0, Math.PI * 2, true);
+		ctx.closePath();
+		ctx.fillStyle = einKreis.color;
+		ctx.fill();
+	}
+
+	function clear() {
+    	ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+  		ctx.fillRect(0,0,canvas.width,canvas.height);
+	}
+
+
+	canvas.addEventListener('mousemove', function(e) {
+	    clear();
+	    einKreis.x = e.clientX;
+	    einKreis.y = e.clientY;
+	    einKreis.draw()
+	});
+
+	</script>
+</body>
+</html>
+
+
+

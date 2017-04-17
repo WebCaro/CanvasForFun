@@ -1,0 +1,106 @@
+<!--My First Image Generator-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Bildgenerator1</title>
+    </head>
+    <style type="text/css">
+        canvas { margin: 100px 220px; }
+        button {
+            background-color: cadetblue;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            width: 300px;
+            margin: 50px 40% 0px;
+        }
+    </style>
+    <body>
+        <button type="button" onclick="draw()">Generiere ein neues Bild</button>
+        <canvas id="canvas" width="1000" height="400"></canvas>
+    </body>
+
+    <script type="text/javascript">
+    count = 0;
+    
+    window.onload(draw());
+
+    function draw() {
+        
+        // Zähler bis zum Entleerung der Leinwand 
+        count++;
+
+        // Farben
+        var colors = ['cornflower', 'crimson', 'peachpuff', 'chartreuse', 'seagreen','salmon', 'rosybrown', 'slategrey', 'tomato', 'cadetblue', 'firebrick'];
+        var bgColors = ['whitesmoke', 'azure', 'aliceblue', 'papayawhip', 'oldlace', 'snow', 'linen'] 
+
+        var ctx = document.getElementById('canvas').getContext('2d');
+        
+        // Hintergrund
+        ctx.globalAlpha = Math.random();
+        ctx.fillStyle = bgColors[Math.floor(Math.random() * bgColors.length)];
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        
+        // Kurvenstrich
+        ctx.lineWidth = Math.floor(Math.random() * 30) + 1;
+        ctx.globalAlpha = 0.5;
+        ctx.strokeStyle= colors[Math.floor(Math.random() * colors.length)];
+        // Anfangskoordinaten der Kurven
+        var cp1x = Math.floor(Math.random() * 130) + 110; 
+        var cp1y = Math.floor(Math.random() * 800) + 700;
+        var cp2x = Math.floor(Math.random() * 10) + 40;
+        var cp2y = 50;
+        var mx = -105;
+        var my = -520;
+        
+        // Anzahl der Wiederholungen bis zur Entleerung der Leinwand
+        loopcount = Math.floor(Math.random() * 15) + 5;
+        if (count < loopcount) {
+        // Loop der 5 bis 15 Bezier-Kurven generiert
+            for (var i = 0; i < Math.floor(Math.random() * 7) + 3; i++) {
+                mx+=50;
+                my+=30;
+                cp1x+=Math.floor(Math.random() * 100) + 1; 
+                cp2x+=120;
+                cp1y+=10;
+                ctx.beginPath();
+                ctx.moveTo(mx,my);
+                ctx.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,1130,200);
+                ctx.stroke();
+            };
+        }   
+        else {
+            ctx.closePath;
+            // Leinwand wird entleert
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            count = 0;
+            // Neue Kurven 
+            ctx.beginPath();
+            ctx.moveTo(Math.floor(Math.random() * 230) + 10, Math.floor(Math.random() * 100) + 10);
+                 ctx.bezierCurveTo(Math.floor(Math.random() * 130) + 10,
+                                      Math.floor(Math.random() * 800) + 100,
+                                      Math.floor(Math.random() * 140) + 40,
+                                      Math.floor(Math.random() * 210) + 140,
+                                      1130,200);
+                 ctx.bezierCurveTo(Math.floor(Math.random() * 130) + 10,
+                                      Math.floor(Math.random() * 600) + 100,
+                                      Math.floor(Math.random() * 240) + 40,
+                                      Math.floor(Math.random() * 310) + 140,
+                                      1130,200);
+                 ctx.bezierCurveTo(Math.floor(Math.random() * 130) + 10,
+                                      Math.floor(Math.random() * 800) + 100,
+                                      Math.floor(Math.random() * 180) + 40,
+                                      Math.floor(Math.random() * 210) + 140,
+                                      1130,200);
+            ctx.stroke();
+        }
+    }
+    </script>
+  </body>
+</html>
+

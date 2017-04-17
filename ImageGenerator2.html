@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Bildgenerator2</title>
+    </head>
+    <style type="text/css">
+        canvas { margin: 100px 220px; }
+        button {
+            background-color: cadetblue;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            width: 300px;
+            margin: 50px 40% 0px;
+        }
+    </style>
+    <body onload="draw2();">
+        <button type="button" onclick="draw2()">Generiere ein neues Bild</button>
+        <canvas id="canvas" width="1000" height="400"></canvas>
+    <script type="text/javascript">
+
+    // Zählt Durchläufe bis zum Entleeren der Leinwand
+    counter = 0;
+    function draw2() {
+
+        // Farben
+        var colors = ['cornflower', 'crimson', 'peachpuff', 'chartreuse', 'seagreen','salmon', 'rosybrown', 'slategrey', 'tomato', 'cadetblue', 'firebrick'];
+        var bgColors = ['whitesmoke', 'azure', 'aliceblue', 'papayawhip', 'oldlace', 'snow', 'linen'] 
+
+        var ctx = document.getElementById('canvas').getContext('2d');
+        
+        // Hintergrund
+        ctx.globalAlpha = Math.random();
+        ctx.fillStyle = bgColors[Math.floor(Math.random() * bgColors.length)];
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        
+        // Kurvenstrich
+        ctx.lineWidth = Math.floor(Math.random() * 30) + 1;
+        ctx.strokeStyle= colors[Math.floor(Math.random() * colors.length)];
+
+        // Ausgangskoordinaten
+        var mx = Math.floor(Math.random() * 110) + 105;
+        var my = Math.floor(Math.random() * -200) -400;  
+        
+        //Zählt Durchläufe bis zur Leerung
+        counter+=1;
+        ctx.beginPath();
+        if (counter < 3) {
+            // Loop der 3 bis 7 Bezierkurven generiert
+            for (var i = 0; i < Math.floor(Math.random() * 7) + 3; i++) {
+                ctx.globalAlpha = Math.random();
+                mx+=Math.floor(Math.random() * 170) + 10;
+                my+=Math.floor(Math.random() * 140) + 20;
+                ctx.moveTo(mx,my);
+                ctx.bezierCurveTo(Math.floor(Math.random() * 130) + 10,
+                                  Math.floor(Math.random() * 800) + 100,
+                                  Math.floor(Math.random() * 140) + 40,
+                                  Math.floor(Math.random() * 210) + 140,
+                                  1130,200);
+                ctx.stroke();
+            };
+        }
+        else {
+            ctx.closePath();
+            // Leinwand wird geleert
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            counter = 0;
+            // Eine neue Kurven wird generiert
+            ctx.beginPath()
+            ctx.moveTo(Math.floor(Math.random() * 130) + 10, Math.floor(Math.random() * 130) + 10);
+             ctx.bezierCurveTo(Math.floor(Math.random() * 130) + 10,
+                                  Math.floor(Math.random() * 800) + 100,
+                                  Math.floor(Math.random() * 140) + 40,
+                                  Math.floor(Math.random() * 210) + 140,
+                                  1130,200);
+            ctx.stroke();
+            ctx.closePath();
+        }
+    };
+    </script>
+  </body>
+</html>
+
