@@ -1,0 +1,21 @@
+body {
+  margin: 100px auto;
+  width: 1000px;
+}
+button {
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 300px;
+    margin: 5% 35% 5%;
+}
+
+button:hover {
+  cursor: pointer;
+
+}
